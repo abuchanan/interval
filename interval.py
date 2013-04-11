@@ -2,13 +2,9 @@ from functools import total_ordering
 
 __version__ = '0.1'
 
-@total_ordering
-class Interval(object):
-    '''0-based, half-open interval'''
 
-    def __init__(self, start, end):
-        self.start = start
-        self.end = end
+@total_ordering
+class ComparisonMixin(object):
 
     @property
     def _key(self):
@@ -23,6 +19,14 @@ class Interval(object):
     def __hash__(self):
         return hash(self._key)
 
+
+class HalfOpen(object):
+    '''half-open interval'''
+
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+
     @property
     def length(self):
         return self.end - self.start
@@ -36,3 +40,25 @@ class Interval(object):
 
     def overlaps(self, other):
         return other.start < self.end and other.end > self.start
+
+
+class Closed(object):
+    '''closed interval'''
+
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+
+    @property
+    def length(self):
+        return self.end - self.start + 1
+
+    def __contains__(self, other):
+        if isinstance(other, int):
+            return other >= self.start and other <= self.end
+
+        # TODO not sure if I should do error checking here.
+        return other.start >= self.start and other.end <= self.end
+
+    def overlaps(self, other):
+        return other.start <= self.end and other.end >= self.start
