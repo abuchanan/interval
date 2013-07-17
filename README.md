@@ -35,3 +35,8 @@ hash(c) == hash(d)
 # Implements __lt__
 a < c
 ```
+
+
+# Testing
+
+```python setup.py nosetests```

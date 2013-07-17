@@ -1,15 +1,17 @@
-from distutils.core import setup
-
-import interval
+from setuptools import setup, find_packages, Extension
 
 
 setup(
     name='interval',
-    description='A small utility class for representing 0-based, half-open intervals.',
+    description='Utilities for working with intervals.',
     long_description=open('README.md').read(),
-    version=interval.__version__,
+    version='1.0.0',
     author='Alex Buchanan',
     author_email='buchanae@gmail.com',
     license='MIT',
-    py_modules=['interval']
+    packages=find_packages(),
+    ext_modules=[
+        Extension('interval.intervaltree', ['interval/intervaltree.pyx']),
+    ],
+    install_requires=['cython'],
 )
