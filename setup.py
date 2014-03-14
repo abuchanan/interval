@@ -5,13 +5,12 @@ setup(
     name='interval',
     description='Utilities for working with intervals.',
     long_description=open('README.md').read(),
-    version='1.0.0',
+    version='1.0.1',
     author='Alex Buchanan',
     author_email='buchanae@gmail.com',
     license='MIT',
     packages=find_packages(),
     ext_modules=[
-        Extension('interval.intervaltree', ['interval/intervaltree.pyx']),
+        Extension('interval.intervaltree', ['interval/intervaltree.c']),
     ],
-    install_requires=['cython'],
 )
